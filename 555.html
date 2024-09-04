@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        #products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+        }
+        .product {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .product p {
+            margin-bottom: 10px;
+        }
+        .product a {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .product a:hover {
+            background-color: #555;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="touch index.html" class="button">ホーム</a>
+        <h1>My Store</h1>
+        <nav>            
+            <button class="button" onclick="location.href='peji.html'">新規会員登録</button>
+            <button class="button" onclick="location.href='login.html'">ログイン</button>
+        </nav>
+    </header>
+    <main>
+        <section id="products">
+            <div class="product">
+                <img src="product1.jpg" alt="Product 1">
+                <h3>サントリー天然水</h3>
+                <p>Description of Product 1.</p>
+                <p>100円</p>
+                <a href="111.html">支払う</a>
+            </div>
+            <div class="product">
+                <img src="product2.jpg" alt="Product 2">
+                <h3>パン</h3>
+                <p>Description of Product 2.</p>
+                <p>300円</p>
+                <a href="222.html">支払う</a>
+            </div>
+            <div class="product">
+                <img src="product3.jpg" alt="Product 3">
+                <h3>ポテトチップス</h3>
+                <p>Description of Product 3.</p>
+                <p>200円</p>
+                <a href="333.html">支払う</a>
+            </div>
+            <div class="product">
+                <img src="product4.jpg" alt="Product 4">
+                <h3>お菓子</h3>
+                <p>Description of Product 4.</p>
+                <p>1000円</p>
+                <a href="444.html">支払う</a>
+            </div>
+            <div class="product">
+                <img src="product5.jpg" alt="Product 5">
+                <h3>コーヒー</h3>
+                <p>Description of Product 5.</p>
+                <p>150円</p>
+                <a href="555.html">支払う</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

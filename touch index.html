@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontierShop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: darkgreen;
+        }
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-container input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-nav">
+        <a href="touch index.html" class="button">ホーム</a>
+        <h1>FrontierShop</h1>
+        <nav>
+            <div class="search-container">
+                <input type="text" id="searchQuery" placeholder="商品名を入力">
+                <button class="button" onclick="searchProduct()">検索</button>
+            </div>
+            <button class="button" onclick="location.href='peji.html'">新規会員登録</button>
+            <button class="button" onclick="location.href='login.html'">ログイン</button>
+        </nav>
+    </header>
+    <main>
+        <div id="searchResults"></div>
+        <div class="cart">
+            <h2>ショッピングカート</h2>
+            <div id="cartItems"></div>
+            <div id="totalPrice"></div>
+            <button class="button" onclick="confirmPurchase()">購入を確認する</button>
+        </div>
+        <section id="products">
+            <div class="product">
+                <img src="product1.jpg" alt="Product 1">
+                <h3>キーボード</h3>
+                <p>Description of Product 1.</p>
+                <p>8000円</p>
+                <a href="111.html">購入</a>
+            </div>
+            <div class="product">
+                <img src="product2.jpg" alt="Product 2">
+                <h3>イヤホン</h3>
+                <p>Description of Product 2.</p>
+                <p>10000円</p>
+                <a href="222.html">購入</a>
+            </div>
+            <div class="product">
+                <img src="product3.jpg" alt="Product 3">
+                <h3>ノートパソコン</h3>
+                <p>Description of Product 3.</p>
+                <p>150000円</p>
+                <a href="333.html">購入</a>
+            </div>
+
+        </section>
+    </main>
+    <script>
+        const products = [
+            { name: 'ノートパソコン', price: 150000, url: '333.html' },
+            { name: 'イヤホン', price: 10000, url: '222.html' },
+            { name: 'キーボード', price: 8000, url: '111.html' },  // 商品"キーボード"的页面
+
+        ];
+
+        let cart = [];
+
+        function searchProduct() {
+            const query = document.getElementById('searchQuery').value.trim().toLowerCase();
+            const results = products.filter(product => product.name.toLowerCase().includes(query));
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+            results.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    商品名: ${product.name}, 価格: ${product.price}円 
+                    <button class="button" onclick="addToCart('${product.name}', ${product.price})">カートに追加</button>
+                    <button class="button" onclick="location.href='${product.url}'">詳細を見る</button> <!-- 跳转到商品页面 -->
+                `;
+                resultsDiv.appendChild(productDiv);
+            });
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            displayCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.textContent = `商品名: ${item.name}, 価格: ${item.price}円`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = '取消';
+                removeButton.onclick = () => removeFromCart(index);
+                itemDiv.appendChild(removeButton);
+                cartItemsDiv.appendChild(itemDiv);
+                total += item.price;
+            });
+            document.getElementById('totalPrice').textContent = `合計金額: ${total}円`;
+        }
+
+        function confirmPurchase() {
+            if (cart.length === 0) {
+                alert('カートに商品がありません！');
+                return;
+            }
+
+            const confirmation = confirm('購入を確定しますか？');
+            if (confirmation) {
+                alert('購入が完了しました！');
+                cart = [];
+                displayCart();
+            } else {
+                alert('購入をキャンセルしました。');
+            }
+        }
+    </script>
+</body>
+</html>

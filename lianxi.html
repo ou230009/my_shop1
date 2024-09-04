@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品検索とショッピングカート</title>
+    <style>
+        .product {
+            margin-bottom: 10px;
+        }
+        .cart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>商品検索とショッピングカート</h1>
+    <input type="text" id="searchQuery" placeholder="商品名を入力">
+    <button onclick="searchProduct()">検索</button>
+    <div id="searchResults"></div>
+
+    <div class="cart">
+        <h2>ショッピングカート</h2>
+        <div id="cartItems"></div>
+        <div id="totalPrice"></div>
+        <button onclick="confirmPurchase()">購入を確認する</button>
+    </div>
+
+    <script>
+        // 模擬商品データ
+        const products = [
+            { name: 'スマホ', price: 30000 },
+            { name: 'ノートパソコン', price: 70000 },
+            { name: 'ヘッドホン', price: 5000 },
+            { name: 'キーボード', price: 2000 },
+            { name: '戒指', price: 12000 },
+            { name: 'ネックレス', price: 10000 },
+            { name: 'ブレスレット', price: 5800 },
+            { name: 'イヤリング', price: 7000 },
+            { name: 'ピアス', price: 6000 },
+            { name: 'ブローチ', price: 7500 },
+            { name: 'チェーン', price: 8800 }
+        ];
+
+        let cart = [];
+
+        function searchProduct() {
+            const query = document.getElementById('searchQuery').value.trim().toLowerCase();
+            const results = products.filter(product => product.name.toLowerCase().includes(query));
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+            results.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `商品名: ${product.name}, 価格: ${product.price}円 <button onclick="addToCart('${product.name}', ${product.price})">カートに追加</button>`;
+                resultsDiv.appendChild(productDiv);
+            });
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            displayCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.textContent = `商品名: ${item.name}, 価格: ${item.price}円`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = '取消';
+                removeButton.onclick = () => removeFromCart(index);
+                itemDiv.appendChild(removeButton);
+                cartItemsDiv.appendChild(itemDiv);
+                total += item.price;
+            });
+            document.getElementById('totalPrice').textContent = `合計金額: ${total}円`;
+        }
+
+        function confirmPurchase() {
+            if (cart.length === 0) {
+                alert('カートに商品がありません！');
+                return;
+            }
+
+            const confirmation = confirm('購入を確定しますか？');
+            if (confirmation) {
+                // 这里可以添加购买成功后的逻辑，例如清空购物车等
+                alert('購入が完了しました！');
+                cart = []; // 清空购物车
+                displayCart(); // 更新购物车显示
+            } else {
+                alert('購入をキャンセルしました。');
+            }
+        }
+    </script>
+</body>
+</html>
